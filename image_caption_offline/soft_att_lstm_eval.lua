@@ -101,7 +101,8 @@ function beam_search(model, dataloader, opt)
                 -- os.exit()
                     
                 -- get top-beam_size
-                loss_beam, sentence_beam[{{}, 1}] = predictions[t]:topk(beam_size, true)
+                loss_beam, b = predictions[t]:topk(beam_size, true)
+                sentence_beam[{{}, 1}] = b:cuda()
                 
                 loss_beam = loss_beam:t()     -- beam_size * 1
                 
